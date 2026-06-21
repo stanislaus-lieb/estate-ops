@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="..\EstateOps.Application\EstateOps.Application.csproj" />
+    <ProjectReference Include="..\EstateOps.Infrastructure\EstateOps.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

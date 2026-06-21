@@ -1,0 +1,131 @@
+<main class="min-h-screen bg-base-200">
+  <div
+    class="grid min-h-screen grid-cols-1 lg:grid-cols-[17rem_minmax(0,1fr)_21rem]"
+  >
+    <aside class="hidden border-r border-base-300 bg-base-100 lg:block">
+      <div class="flex h-full flex-col gap-6 p-4">
+        <div class="flex items-center gap-3 px-2 py-1">
+          <div
+            class="flex size-9 items-center justify-center rounded-box bg-primary text-primary-content"
+          >
+            <svg lucideBuilding2 [size]="20" aria-hidden="true"></svg>
+          </div>
+          <div>
+            <p class="text-sm font-semibold">{{ copy.appName }}</p>
+            <p class="text-xs text-base-content/60">{{ copy.workspace }}</p>
+          </div>
+        </div>
+
+        <nav aria-label="Hauptnavigation" class="menu gap-1 p-0">
+          @for (item of navigation; track item.label) {
+            <button
+              type="button"
+              class="btn btn-ghost h-10 justify-start rounded-field text-sm font-medium"
+              [class.btn-active]="item.active"
+            >
+              <svg
+                [lucideIcon]="item.icon"
+                [size]="18"
+                aria-hidden="true"
+              ></svg>
+              <span>{{ item.label }}</span>
+            </button>
+          }
+        </nav>
+      </div>
+    </aside>
+
+    <section class="flex min-w-0 flex-col">
+      <header class="border-b border-base-300 bg-base-100 px-4 py-3 lg:px-6">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p class="text-xs font-medium uppercase text-base-content/55">
+              {{ copy.phaseOne }}
+            </p>
+            <h1 class="text-xl font-semibold">{{ copy.startTitle }}</h1>
+          </div>
+          <a class="btn btn-primary btn-sm" href="/api/health">
+            <svg lucideActivity [size]="16" aria-hidden="true"></svg>
+            {{ copy.health }}
+          </a>
+        </div>
+      </header>
+
+      <div class="grid flex-1 content-start gap-5 p-4 lg:p-6">
+        <section class="rounded-box border border-base-300 bg-base-100 p-5">
+          <div
+            class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_16rem] lg:items-center"
+          >
+            <div class="max-w-2xl">
+              <p class="text-sm text-base-content/65">
+                {{ copy.startSubtitle }}
+              </p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="badge badge-outline">Angular</span>
+                <span class="badge badge-outline">Tailwind CSS</span>
+                <span class="badge badge-outline">daisyUI</span>
+                <span class="badge badge-outline">ASP.NET Core</span>
+                <span class="badge badge-outline">PostgreSQL</span>
+              </div>
+            </div>
+            <div
+              class="stats stats-vertical rounded-box border border-base-300 shadow-none"
+            >
+              <div class="stat py-3">
+                <div class="stat-title text-xs">{{ copy.apiReady }}</div>
+                <div class="stat-value text-base">/api/health</div>
+              </div>
+              <div class="stat py-3">
+                <div class="stat-title text-xs">{{ copy.databaseReady }}</div>
+                <div class="stat-value text-base">/api/health/ready</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="grid gap-4 md:grid-cols-3">
+          <article class="rounded-box border border-base-300 bg-base-100 p-4">
+            <p class="text-sm font-semibold">{{ copy.properties }}</p>
+            <p class="mt-2 text-sm text-base-content/65">
+              Listen- und Detailmuster folgen in Phase 3.
+            </p>
+          </article>
+          <article class="rounded-box border border-base-300 bg-base-100 p-4">
+            <p class="text-sm font-semibold">{{ copy.residents }}</p>
+            <p class="mt-2 text-sm text-base-content/65">
+              Mieter werden später über Mietverträge verknüpft.
+            </p>
+          </article>
+          <article class="rounded-box border border-base-300 bg-base-100 p-4">
+            <p class="text-sm font-semibold">{{ copy.documents }}</p>
+            <p class="mt-2 text-sm text-base-content/65">
+              Dokumente bleiben backend-gesichert und organisationsbezogen.
+            </p>
+          </article>
+        </section>
+      </div>
+    </section>
+
+    <aside
+      class="border-t border-base-300 bg-base-100 p-4 lg:border-l lg:border-t-0"
+    >
+      <div class="flex items-center gap-2">
+        <div
+          class="flex size-8 items-center justify-center rounded-box bg-secondary text-secondary-content"
+        >
+          <svg lucideBot [size]="18" aria-hidden="true"></svg>
+        </div>
+        <div>
+          <p class="text-sm font-semibold">{{ copy.assistant }}</p>
+          <p class="text-xs text-base-content/60">{{ copy.nextSteps }}</p>
+        </div>
+      </div>
+      <div
+        class="mt-4 rounded-box border border-dashed border-base-300 p-4 text-sm text-base-content/65"
+      >
+        Die AI-Seitenleiste ist als Layout-Bereich vorbereitet. Tool-Ausführung,
+        Audit und Bestätigungen folgen in Phase 5.
+      </div>
+    </aside>
+  </div>
+</main>

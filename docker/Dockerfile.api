@@ -1,0 +1,23 @@
+# syntax=docker/dockerfile:1
+
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+COPY EstateOps.sln Directory.Build.props Directory.Packages.props global.json ./
+COPY src/EstateOps.Api/EstateOps.Api.csproj src/EstateOps.Api/
+COPY src/EstateOps.Application/EstateOps.Application.csproj src/EstateOps.Application/
+COPY src/EstateOps.Domain/EstateOps.Domain.csproj src/EstateOps.Domain/
+COPY src/EstateOps.Infrastructure/EstateOps.Infrastructure.csproj src/EstateOps.Infrastructure/
+COPY tests/EstateOps.Api.Tests/EstateOps.Api.Tests.csproj tests/EstateOps.Api.Tests/
+RUN dotnet restore EstateOps.sln
+
+COPY . .
+RUN dotnet publish src/EstateOps.Api/EstateOps.Api.csproj --configuration Release --output /app/publish --no-restore
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+WORKDIR /app
+ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
+COPY --from=build /app/publish .
+USER $APP_UID
+ENTRYPOINT ["dotnet", "EstateOps.Api.dll"]
