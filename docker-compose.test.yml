@@ -1,0 +1,40 @@
+services:
+  backend-tests:
+    image: mcr.microsoft.com/dotnet/sdk:10.0
+    working_dir: /workspace
+    environment:
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      DOTNET_NOLOGO: "1"
+    volumes:
+      - .:/workspace
+      - estateops-nuget-cache:/root/.nuget/packages
+    command:
+      - sh
+      - -c
+      - >
+        dotnet restore EstateOps.sln &&
+        dotnet build EstateOps.sln --configuration Release --no-restore &&
+        dotnet test EstateOps.sln --configuration Release --no-build
+
+  web-checks:
+    image: node:24-alpine
+    working_dir: /workspace/src/EstateOps.Web
+    environment:
+      CI: "true"
+    volumes:
+      - .:/workspace
+      - estateops-web-node-modules:/workspace/src/EstateOps.Web/node_modules
+      - estateops-web-angular-cache:/workspace/src/EstateOps.Web/.angular
+    command:
+      - sh
+      - -c
+      - >
+        npm ci &&
+        npm run format:check &&
+        npm run lint &&
+        npm run build
+
+volumes:
+  estateops-nuget-cache:
+  estateops-web-node-modules:
+  estateops-web-angular-cache:

@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\EstateOps.Domain\EstateOps.Domain.csproj" />
+  </ItemGroup>
+</Project>

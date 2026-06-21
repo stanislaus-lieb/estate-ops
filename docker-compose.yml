@@ -1,0 +1,43 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      EstateOps__Database__Host: ${ESTATEOPS_DB_HOST:-postgres}
+      EstateOps__Database__Port: ${ESTATEOPS_DB_PORT:-5432}
+      EstateOps__Database__Database: ${ESTATEOPS_DB_NAME:-estateops}
+      EstateOps__Database__MaintenanceDatabase: ${ESTATEOPS_DB_MAINTENANCE_DATABASE:-postgres}
+      EstateOps__Database__Username: ${ESTATEOPS_DB_USERNAME:-estateops}
+      EstateOps__Database__Password: ${ESTATEOPS_DB_PASSWORD:?Set ESTATEOPS_DB_PASSWORD in your local .env}
+      EstateOps__Database__SslMode: ${ESTATEOPS_DB_SSL_MODE:-Prefer}
+      EstateOps__Database__GssEncryptionMode: ${ESTATEOPS_DB_GSS_ENCRYPTION_MODE:-Disable}
+    ports:
+      - "5080:8080"
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.web
+    depends_on:
+      - api
+    ports:
+      - "4200:80"
+
+  postgres:
+    image: postgres:17-alpine
+    profiles:
+      - local-db
+    environment:
+      POSTGRES_DB: ${ESTATEOPS_DB_NAME:-estateops}
+      POSTGRES_USER: ${ESTATEOPS_DB_USERNAME:-estateops}
+      POSTGRES_PASSWORD: ${ESTATEOPS_DB_PASSWORD:?Set ESTATEOPS_DB_PASSWORD in your local .env}
+    ports:
+      - "${ESTATEOPS_LOCAL_DB_PORT:-5432}:5432"
+    volumes:
+      - estateops-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  estateops-postgres-data:

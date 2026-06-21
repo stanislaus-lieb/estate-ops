@@ -14,15 +14,17 @@ This roadmap is a working proposal. It should evolve with product discussions.
 
 ## Phase 1: Project Scaffold
 
-- Create Angular application.
-- Create ASP.NET Core solution.
-- Add PostgreSQL and EF Core.
-- Add Docker Compose for local development.
-- Add basic CI expectations.
-- Add formatting and linting.
-- Add initial health check endpoint.
-- Add Tailwind CSS and daisyUI.
-- Establish the first custom EstateOps UI theme.
+Status: Implemented in the initial repository scaffold.
+
+- [x] Create Angular application.
+- [x] Create ASP.NET Core solution.
+- [x] Add PostgreSQL and EF Core.
+- [x] Add Docker Compose for local development.
+- [x] Add basic CI expectations.
+- [x] Add formatting and linting.
+- [x] Add initial health check endpoint.
+- [x] Add Tailwind CSS and daisyUI.
+- [x] Establish the first custom EstateOps UI theme.
 
 ## Phase 2: Identity And Organizations
 

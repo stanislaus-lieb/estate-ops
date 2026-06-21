@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  docker-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run backend checks in Docker
+        run: docker compose -f docker-compose.test.yml run --rm backend-tests
+
+      - name: Run frontend checks in Docker
+        run: docker compose -f docker-compose.test.yml run --rm web-checks
